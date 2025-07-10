@@ -1,37 +1,18 @@
-# WordPress theme .gitignore
-
-# Ignore all WordPress uploads, cache, logs, etc.
-wp-content/uploads/
-wp-content/cache/
-wp-content/wp-cache-config.php
-wp-content/advanced-cache.php
-
-# Ignore environment-specific files
+# WordPress files
+wp-config.php
+.htaccess
+sitemap.xml
+robots.txt
+*.log
+/cache/
+/uploads/
+/sessions/
+node_modules/
+npm-debug.log
+yarn-error.log
 .env
-.env.local
-.env.development
-.env.production
-
-# Ignore IDE files
-*.swp
-*.swo
-*.sublime-project
-*.sublime-workspace
-.idea/
-.vscode/
-.cache/
-
-# Ignore OS generated files
+.dockerenv
+/.idea
+/.vscode
 .DS_Store
 Thumbs.db
-
-# Ignore node_modules (if using npm/yarn)
-node_modules/
-dist/
-build/
-
-# Ignore composer vendor (unless you're bundling dependencies)
-vendor/
-
-# Ignore log files
-*.log
