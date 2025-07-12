@@ -1,17 +1,42 @@
-<?php
 
+<?php
+if ($condition) {
+    //Statements
+} else {
+    //Statements
+}
 //Alternative syntax
-/*
-if():
-elseif():
+if ($condition):
 else:
 endif;
 
 
-whlie():
+if ($condition) {
+    //Statements
+} elseif ($anotherCondition) {
+    //Statements
+} else {
+    //Statements
+}
+
+//Alternative syntax
+if ($condition):
+elseif ($anotherCondition):
+else:
+endif;
+
+while ($condition) {
+    //Statements
+}
+
+//Alternative syntax
+while ($condition):
 endwhile;
 
-for( ; ;):
-endfor;
-*/
+for (;;) {
+    //Statements
+}
 
+//Alternative syntax
+for (;;):
+endfor;
