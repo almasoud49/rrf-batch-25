@@ -21,11 +21,9 @@ if (isset($_GET['accept_cookie'])) {
         <div class="header">
             <h2>Student Information</h2>
         </div>
-
         <?php
 
-        $name = $email = $phone = $student_id = $group = $dob = $gender =  $address = $photo = '';
-
+        $name = $email = $phone = $student_id = $group = $dob = $gender = $address = $photo = '';
         $students = [];
         $errors = [];
         $success = '';
@@ -40,12 +38,6 @@ if (isset($_GET['accept_cookie'])) {
             $gender = $_POST['gender'] ?? '';
             $address = $_POST['address'];
             $photo = $_FILES['photo']['name'];
-            $tmp_name = $_FILES['photo']['tmp_name'];
-
-            if (!empty($photo)) {
-                $upload_dir = 'uploads/';
-                move_uploaded_file($tmp_name, $upload_dir . $photo);
-            }
 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -65,117 +57,101 @@ if (isset($_GET['accept_cookie'])) {
                     'dob' => $dob,
                     'gender' => $gender,
                     'address' => $address,
-                    'photo' => $photo
+                    'photo' => $photo,
                 ];
 
                 array_push($_SESSION['students'], $newStudent);
             }
+
             if (isset($_SESSION['students'])) {
                 $students = $_SESSION['students'];
             }
 
-            if (empty($name)) $errors['name'] = "Name is required";
+            if (empty($name)) $errors['name'] = "Name is requird";
 
-
-            if (empty($email)) $errors['email'] = "Email is required";
+            if (empty($email)) $errors['email'] = "Email is requird";
             elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors['email'] = "Invalid email format";
 
 
-            if (empty($phone)) $errors['phone'] = "Phone number is required";
+            if (empty($phone)) $errors['phone'] = "Phone is requird";
 
 
-            if (empty($errors) && !empty($name) && !empty($email) && !empty($phone)) $success = "New Student added successfully";
+            if (empty($errors) && !empty($name) && !empty($email) && !empty($phone)) $success = "New Student Added Successfully";
         }
 
-
-
-
         ?>
+
         <div class="form-container">
+
             <?php if (isset($success)): ?>
                 <p style="color:green"><?php echo $success ?></p>
-
             <?php endif; ?>
             <form method="POST" action="" enctype="multipart/form-data">
-
-                <!-- Name -->
                 <div class="form-group">
                     <label for="name">Full Name</label>
-                    <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($name); ?>" required>
+                    <input type="text" name="name" value="<?php echo htmlspecialchars($name)  ?>" id="name" required>
                 </div>
-
                 <?php if (isset($errors['name'])): ?>
                     <p style="color:red"><?php echo $errors['name']; ?></p>
                 <?php endif; ?>
 
-                <!-- Email -->
+
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>" required>
+                    <input type="email" name="email" value="<?php echo htmlspecialchars($email)  ?>" id="email" required>
                 </div>
                 <?php if (isset($errors['email'])): ?>
                     <p style="color:red"><?php echo $errors['email']; ?></p>
                 <?php endif; ?>
-
-                <!-- Phone -->
                 <div class="form-group">
                     <label for="phone">Phone</label>
-                    <input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($phone); ?>" required>
+                    <input type="text" name="phone" value="<?php echo htmlspecialchars($phone)  ?>" id="phone" required>
                 </div>
                 <?php if (isset($errors['phone'])): ?>
                     <p style="color:red"><?php echo $errors['phone']; ?></p>
                 <?php endif; ?>
 
-                <!-- Student id -->
+                <!-- Student ID -->
                 <div class="form-group">
-                    <label for="student_id">Student Id</label>
-                    <input type="text" id="student_id" name="student_id"
-                        value="<?php echo htmlspecialchars($student_id); ?>">
+                    <label>Student ID</label>
+                    <input type="text" name="student_id" value="<?php echo htmlspecialchars($student_id); ?>">
                 </div>
 
                 <!-- Group -->
                 <div class="form-group">
-                    <label for="group">Group</label>
-                    <select id="group" name="group">
-                        <option value="Science">-- Select Group --</option>
+                    <label>Group</label>
+                    <select name="group">
+                        <option value="">-- Select Group --</option>
                         <option value="Science" <?php if ($group == 'Science') echo 'selected'; ?>>Science</option>
-                        <option value="Arts" <?php if ($group == 'Arts') echo 'selected'; ?>>Arts
-                        </option>
-                        <option value="Commerce <?php if ($group == 'Commerce') echo 'selected'; ?>">Commerce</option>
+                        <option value="Commerce" <?php if ($group == 'Commerce') echo 'selected'; ?>>Commerce</option>
+                        <option value="Arts" <?php if ($group == 'Arts') echo 'selected'; ?>>Arts</option>
                     </select>
                 </div>
 
-                <!-- Date of birth -->
+                <!-- Date of Birth -->
                 <div class="form-group">
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($dob); ?>">
+                    <label>Date of Birth</label>
+                    <input type="date" name="dob" value="<?php echo htmlspecialchars($dob); ?>">
                 </div>
 
                 <!-- Gender -->
                 <div class="form-group">
-                    <label for="group">Gender</label>
+                    <label>Gender</label>
                     <div class="inline-group">
-                        <div class="inline-option">
-                            <input type="radio" id="male" name="gender" value="male" <?php if ($gender == 'male') echo 'checked'; ?>>
-                            <label for="male">Male</label>
-                        </div>
-
-                        <div class="inline-option">
-                            <input type="radio" id="female" name="gender" value="female" <?php if ($gender == 'female') echo 'checked'; ?>>
-                            <label for="female">Female</label>
-                        </div>
+                        <label><input type="radio" name="gender" value="male" <?php if ($gender == 'male') echo 'checked'; ?>> Male</label>
+                        <label><input type="radio" name="gender" value="female" <?php if ($gender == 'female') echo 'checked'; ?>> Female</label>
                     </div>
                 </div>
 
-                <!--Address -->
+                <!-- Address -->
                 <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>">
+                    <label>Address</label>
+                    <input type="text" name="address" value="<?php echo htmlspecialchars($address); ?>">
                 </div>
 
                 <!-- Photo -->
                 <div class="form-group">
-                    <label for="photo">Photo Id</label>
+                    <label>Photo</label>
                     <input type="file" id="photo" name="photo">
                 </div>
                 <button type=" submit" name="submit" class="submit-btn">
@@ -183,7 +159,6 @@ if (isset($_GET['accept_cookie'])) {
                 </button>
             </form>
         </div>
-
         <div class="header">
             <h2>Submitted Data</h2>
         </div>
@@ -193,7 +168,7 @@ if (isset($_GET['accept_cookie'])) {
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Student ID</th>
+                    <th>ID</th>
                     <th>Group</th>
                     <th>DoB</th>
                     <th>Gender</th>
@@ -207,68 +182,63 @@ if (isset($_GET['accept_cookie'])) {
                         <td>Student Name 2</td>
                         <td>student2@gmail.com</td>
                         <td>234-567-8901</td>
-                        <td>20250001</td>
-                        <td>Science</td>
-                        <td>01-01-2020</td>
-                        <td>Male</td>
+                        <td>238901</td>
+                        <td>Arts</td>
+                        <td>2004-12-10</td>
+                        <td>Female</td>
                         <td>Dhaka</td>
-                        <td>pic.png</td>
-
+                        <td>student.png</td>
                     </tr>
                     <tr>
-                        <td>Student Name 2</td>
-                        <td>student2@gmail.com</td>
+                        <td>Student Name 3</td>
+                        <td>student3@gmail.com</td>
                         <td>234-567-8901</td>
-                        <td>20250001</td>
-                        <td>Science</td>
-                        <td>01-01-2020</td>
-                        <td>Male</td>
+                        <td>238901</td>
+                        <td>Arts</td>
+                        <td>2004-12-10</td>
+                        <td>Female</td>
                         <td>Dhaka</td>
-                        <td>pic.png</td>
+                        <td>student.png</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($students as $student): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($student['name']); ?></td>
-                            <td><?php echo htmlspecialchars($student['email']); ?></td>
-                            <td><?php echo htmlspecialchars($student['phone']); ?></td>
-                            <td><?php echo htmlspecialchars($student['student_id']); ?></td>
-                            <td><?php echo htmlspecialchars($student['group']); ?></td>
-                            <td><?php echo htmlspecialchars($student['dob']); ?></td>
-                            <td><?php echo htmlspecialchars($student['gender']); ?></td>
-                            <td><?php echo htmlspecialchars($student['address']); ?></td>
-                            <td>
-                                <?php if (!empty($student['photo'])): ?>
-                                    <img src="uploads/<?php echo htmlspecialchars($student['photo']); ?>" alt="Student Photo" width="60">
-                                <?php else: ?>
-                                    N/A
-                                <?php endif; ?>
-                            </td>
+                            <td><?php echo htmlspecialchars($student['name']) ?></td>
+                            <td><?php echo htmlspecialchars($student['email']) ?></td>
+                            <td><?php echo htmlspecialchars($student['phone']) ?></td>
+                            <td><?php echo htmlspecialchars($student['student_id']) ?></td>
+                            <td><?php echo htmlspecialchars($student['group']) ?></td>
+                            <td><?php echo htmlspecialchars($student['dob']) ?></td>
+                            <td><?php echo htmlspecialchars($student['gender']) ?></td>
+                            <td><?php echo htmlspecialchars($student['address']) ?></td>
+                            <td><?php echo htmlspecialchars($student['photo']) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
+
             </tbody>
-
         </table>
-    </div>
-    <?php if (!isset($_COOKIE['cookie_accepted'])): ?>
-        <!-- Cookie Box -->
-        <div class="cookie-box" id="cookieBox">
-            <div>
-                <p> We use cookie sothat you can good experience in our website . Are you agree?</p>
+        <?php if (!isset($_COOKIE['cookie_accepted'])): ?>
+            <!-- Cookie Box -->
+            <div class="cookie-box" id="cookieBox">
+                <div>
+                    <p>
+                        আমরা Cookies ব্যবহার করি যাতে আপনি আমাদের ওয়েবসাইটে সর্বোত্তম অভিজ্ঞতা পান। আপনি কি সম্মতি দিচ্ছেন ?
+
+                    </p>
+                </div>
+                <button onclick="acceptCookie()" class="cookie-btn">Allow</button>
             </div>
-            <button onclick="acceptCookie()">Allow</button>
-        </div>
+    </div>
+<?php endif; ?>
+<script>
+    function acceptCookie() {
+        fetch('?accept_cookie=true').then(() => {
+            document.getElementById('cookieBox').style.display = 'none';
+        });
+    }
+</script>
 
-    <?php endif; ?>
-
-    <script>
-        function acceptCookie() {
-            fetch('?accept_cookie=true').then(() => {
-                document.getElementById('cookieBox').style.display = 'none';
-            });
-        }
-    </script>
 
 </body>
 
