@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+.rrf-menu > div> ul {
+    @apply flex items-center;
+}
+
+.rrf-menu > div> ul li a {
+    @apply block px-4 py-2;
+}
+
+.rrf-menu > div> ul li{
+    @apply relative;
+}
+
+
+.rrf-menu > div> ul li ul{
+    @apply absolute bg-black flex-col w-64 opacity-0 invisible transition;
+}
+
+.rrf-menu > div> ul li ul ul{
+    @apply left-full top-0;
+}
+
+.rrf-menu > div> ul li:hover ul,
+.rrf-menu > div> ul li:hover ul li:hover ul{
+    @apply opacity-100 visible;
+}
+
+.rrf-menu > div> ul li:hover ul ul{
+    @apply opacity-100 invisible;
+}
+
+.rrf-menu > div> ul li ul a{
+    @apply text-white;
+}
+
+.rrf-menu > div> ul li ul a:hover,
+.rrf-menu > div> ul li:hover > a{
+    @apply text-black bg-white;
+}
+
+
+
+
+.btn{
+    @apply bg-black text-white rounded-full px-6 py-2
+}
