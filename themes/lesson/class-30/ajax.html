@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+</head>
+<body>
+    <button id="loadBtn">Send Data</button>
+    <div id="output"></div>
+    <script>
+        document.getElementById('loadBtn').addEventListener('click',function(){
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'data.txt', true);
+            xhr.onload = function(){
+                if(this.status ===200){
+                    document.getElementById('output').innerHTML= this.responseText;
+                }else{
+                    document.getElementById('output').innerHTML= "Some problems have occurred. Please check again.";
+                }
+            }
+
+            xhr.send();
+        });
+    </script>
+    
+</body>
+</html>
